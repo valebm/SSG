@@ -6,7 +6,6 @@ const { promisify } = require('util')
 const marked = require('marked')
 const frontMatter = require('front-matter')
 const globP = promisify(require('glob'))
-const glob = require('glob')
 const config = require('../site.config')
 
 const ejsRenderFile = promisify(ejs.renderFile)
@@ -55,20 +54,19 @@ globP('**/*.@(md|ejs|html)', { cwd: `${srcPath}/pages` })
           var posts = []
           if (layout === 'blog'){
           // read pages
-          const files = glob('**/*.@(md|ejs|html)', { cwd: `${srcPath}/posts` }, function(err, files){
+          return globP('**/*.@(md|ejs|html)', { cwd: `${srcPath}/posts` }).then((filess)=>{
           //console.log(files)
-            files.forEach((file) => {
+          var itemsProcessed = 0;
+            filess.forEach((file)=>{
               const fileData = path.parse(file)
 
-              // create destination directory
-              var readF
-              fse.readFile(`${srcPath}/posts/${file}`, 'utf-8', function(err,file){
-                
+              file = fse.readFileSync(`${srcPath}/posts/${file}`, 'utf-8');
                   const postData = frontMatter(file)
                   const postLayout = postData.attributes.layout || 'default'
+  
     
                       if (postLayout === 'post'){
-                        console.log("si reconoce")
+
                         const templateConfig = Object.assign({}, config, { page: postData.attributes })
                         let postContent
     
@@ -86,18 +84,37 @@ globP('**/*.@(md|ejs|html)', { cwd: `${srcPath}/pages` })
     
                       
                       // render layout with page contents
-                      posts.push(ejsRenderFile(`${srcPath}/layouts/${postLayout}.ejs`, Object.assign({}, templateConfig, { body: postContent})))
-                      }
-              })
-              
+                      
+                      posts.push(Object.assign({}, { data: templateConfig, body: postContent}))
+                      itemsProcessed++;
+
+                        
+                      
+                    }
+            
+
                 })
+                if(itemsProcessed === filess.length) {
+
+                  return posts
+                }  
+              }).then((posts)=>{
+
+                return ejsRenderFile(`${srcPath}/layouts/${layout}.ejs`, Object.assign({}, templateConfig, { body: pageContent, posts: posts}))
+            
               })
+
+                  
+                
               }
-          console.log(posts[0])
-          return ejsRenderFile(`${srcPath}/layouts/${layout}.ejs`, Object.assign({}, templateConfig, { body: pageContent, posts: posts}))
+              else{
+                return ejsRenderFile(`${srcPath}/layouts/${layout}.ejs`, Object.assign({}, templateConfig, { body: pageContent }))
+              }
+
         })
         .then((str) => {
           // save the html file
+ 
           fse.writeFile(`${destPath}/${fileData.name}.html`, str)
         })
         .catch((err) => { console.error(err) })
