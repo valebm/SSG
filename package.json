@@ -1,0 +1,35 @@
+{
+  "name": "ssg",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "ejs": "^2.5.7",
+    "front-matter": "^2.3.0",
+    "fs-extra": "^5.0.0",
+    "glob": "^7.1.2",
+    "marked": "^0.3.15",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "react-scripts": "1.1.1"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "node ./scripts/build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject",
+    "serve": "serve ./public"
+  },
+  "description": "This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).",
+  "main": "index.js",
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/valebm/SSG.git"
+  },
+  "author": "Valeria Bolaños",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/valebm/SSG/issues"
+  },
+  "homepage": "https://github.com/valebm/SSG#readme"
+}
