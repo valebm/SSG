@@ -7,17 +7,23 @@
     "front-matter": "^2.3.0",
     "fs-extra": "^5.0.0",
     "glob": "^7.1.2",
+    "json": "^9.0.6",
     "marked": "^0.3.15",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
-    "react-scripts": "1.1.1"
+    "react-scripts": "1.1.1",
+    "shelljs": "^0.8.1"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "node ./scripts/build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject",
     "serve": "serve ./public"
+  },
+  "bin": {
+    "ssg-init": "./scripts/startProject.js",
+    "ssg-build": "./scripts/build.js",
+    "ssg-post": "./scripts/createPost.js",
+    "ssg-draft": "./scripts/createDraft.js"
   },
   "description": "This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).",
   "main": "index.js",
@@ -31,5 +37,9 @@
   "bugs": {
     "url": "https://github.com/valebm/SSG/issues"
   },
-  "homepage": "https://github.com/valebm/SSG#readme"
+  "homepage": "https://github.com/valebm/SSG#readme",
+  "directories": {
+    "doc": "docs"
+  },
+  "keywords": []
 }
