@@ -56,27 +56,28 @@ globP('**/*.@(md|ejs|html)', { cwd: `${srcPath}/pages` })
           // read pages
           return globP('**/*.@(md|ejs|html)', { cwd: `${srcPath}/posts` }).then((filess)=>{
           //console.log(files)
-          var itemsProcessed = 0;
+          //var itemsProcessed = 0;
             filess.forEach((file)=>{
-              const fileData = path.parse(file)
+              const blogData = path.parse(file)
 
-              file = fse.readFileSync(`${srcPath}/posts/${file}`, 'utf-8');
-                  const postData = frontMatter(file)
+              readFile = fse.readFileSync(`${srcPath}/posts/${file}`, 'utf-8');
+                  const postData = frontMatter(readFile)
                   const postLayout = postData.attributes.layout || 'default'
   
     
                       if (postLayout === 'post'){
-
-                        const templateConfig = Object.assign({}, config, { page: postData.attributes })
+                        
+                        const postConfig = Object.assign({}, config, { page: postData.attributes })
                         let postContent
+ 
     
                         // generate page content according to file type
-                        switch (fileData.ext) {
+                        switch (blogData.ext) {
                           case '.md':
                             postContent = marked(postData.body)
                             break
                           case '.ejs':
-                            postContent = ejs.render(postData.body, templateConfig)
+                            postContent = ejs.render(postData.body, postConfig)
                             break
                           default:
                             postContent = postData.body
@@ -85,8 +86,15 @@ globP('**/*.@(md|ejs|html)', { cwd: `${srcPath}/pages` })
                       
                       // render layout with page contents
                       
-                      posts.push(Object.assign({}, { data: templateConfig, body: postContent}))
-                      itemsProcessed++;
+                      ejsRenderFile(`${srcPath}/layouts/${postLayout}.ejs`, Object.assign({}, postConfig, { body: postContent})).then((str)=>{
+                        posts.push(Object.assign({}, {body: str}))
+                      })
+
+                        
+                     
+                      
+           
+                     // itemsProcessed++;
 
                         
                       
@@ -94,12 +102,12 @@ globP('**/*.@(md|ejs|html)', { cwd: `${srcPath}/pages` })
             
 
                 })
-                if(itemsProcessed === filess.length) {
+
 
                   return posts
-                }  
+                 
               }).then((posts)=>{
-
+       
                 return ejsRenderFile(`${srcPath}/layouts/${layout}.ejs`, Object.assign({}, templateConfig, { body: pageContent, posts: posts}))
             
               })
