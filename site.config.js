@@ -1,10 +1,10 @@
-const projects = require('./src/data/projects')
+const projects = require('./data/projects')
 
 module.exports = {
   site: {
-    title: 'NanoGen',
-    description: 'Micro Static Site Generator in Node.js',
-    basePath: process.env.NODE_ENV === 'production' ? '/nanogen' : '',
+    title: 'SSG',
+    description: 'Static Site Generator in Node.js',
+    basePath: process.env.NODE_ENV === 'production' ? '/ssg' : '',
     projects
   },
   build: {

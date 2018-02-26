@@ -7,6 +7,6 @@ if (folder === "draft"){
     console.log("For example: ssg-draft draft_name.")
 }
 else{
-    shell.exec(`cd src/drafts && mkdir ${folder}`)
-    shell.exec(`cd src/drafts/${folder} && copy /y NUL index.html >NUL`)
+    shell.exec(`cd ./drafts && mkdir ${folder}`)
+    shell.exec(`cd ./drafts/${folder} && copy /y NUL index.html >NUL`)
 }

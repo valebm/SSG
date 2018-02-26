@@ -7,5 +7,5 @@ if (draft === "notFound"){
     console.log("For example: ssg-post-draft draft_name.")
 }
 else{
-    shell.exec(`move src/drafts/${draft} src/posts`)
+    shell.exec(`move ./drafts/${draft} ./posts`)
 }

@@ -1,5 +1,5 @@
 {
-  "name": "ssg",
+  "name": "@valebm/ssg",
   "version": "0.1.0",
   "private": false,
   "dependencies": {
@@ -16,6 +16,7 @@
     "serve": "serve ./public"
   },
   "bin": {
+    "ssg": "./bin/ssg",
     "ssg-init": "./src/lib/startProject.js",
     "ssg-build": "./src/lib/build.js",
     "ssg-post": "./src/lib/createPost.js",
@@ -38,5 +39,6 @@
   "directories": {
     "doc": "docs"
   },
+  "main": "./lib/ssg",
   "keywords": []
 }
