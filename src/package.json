@@ -1,6 +1,6 @@
 {
   "name": "@valebm/ssg",
-  "version": "0.1.0",
+  "version": "3.4.8",
   "private": false,
   "dependencies": {
     "ejs": "^2.5.7",
@@ -9,22 +9,15 @@
     "glob": "^7.1.2",
     "json": "^9.0.6",
     "marked": "^0.3.15",
-    "shelljs": "^0.8.1"
+    "shelljs": "^0.8.1",
+    "commander": "2.0.0"
   },
-  "scripts": {
-    "build": "node ./src/lib/build",
-    "serve": "serve ./public"
-  },
+  "scripts": {},
   "bin": {
-    "ssg": "./bin/ssg",
-    "ssg-init": "./src/lib/startProject.js",
-    "ssg-build": "./src/lib/build.js",
-    "ssg-post": "./src/lib/createPost.js",
-    "ssg-draft": "./src/lib/createDraft.js",
-    "ssg-post-draft": "./src/lib/postDraft.js"
+    "ssg": "./bin/ssg"
   },
-  "description": "This project was created for the Brainstation Immersive Courses by Valeria Bolaños.",
-  "main": "index.js",
+  "description": "This project was created for the Brainstation Immersive Program by Valeria Bolaños.",
+  "main": "./lib/build.js",
   "devDependencies": {},
   "repository": {
     "type": "git",
@@ -36,9 +29,5 @@
     "url": "https://github.com/valebm/SSG/issues"
   },
   "homepage": "https://github.com/valebm/SSG#readme",
-  "directories": {
-    "doc": "docs"
-  },
-  "main": "./lib/ssg",
   "keywords": []
 }
