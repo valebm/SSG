@@ -10,7 +10,7 @@ SSG is a NPM package for easy static site building using Embedded JS, HTML, YAML
 Installation
 ------------
 
-> npm install ejs-lint
+> npm install @valebm/ssg -g
 
 Initialization
 --------------
