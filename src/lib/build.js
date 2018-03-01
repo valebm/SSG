@@ -13,7 +13,7 @@ const config = require(process.cwd()+'\\site.config')
 const ejsRenderFile = promisify(ejs.renderFile)
 var program = require('commander')
 const srcPath = config.build.basePath
-const distPath = config.build.outputPath
+const distPath = config.build.outputPath 
 
 /* Define configuration for commander */
 program.version('0.1.2')
@@ -22,21 +22,11 @@ program.version('0.1.2')
     .option('--post  [filename]', 'Create a new post')
     .option('--draft  [filename]', 'Create a new draft')
     .option('--postdraft  [filename]', 'Post a draft')
+    .option('--serve', 'Serve site')
     .parse(process.argv);
 
 function convertThis() {
-  if(program.start){
-    var folder = program.start;
-    if (folder === true){
-        console.log("SSG couldn't find  the name of the application you want to create. The default name is 'app'.")
-        folder = "app"
-    }
-    shell.exec(`git clone https://github.com/valebm/ssg-base.git`)
-    shell.exec(`rename ssg-base ${folder}`)
-    shell.exec(`cd ${folder} && json -I -f package.json -e "this.name='${folder}'"`)
-    console.log(`SSG ${folder} initialized.`)
-  }
-  else if(program.post) {
+  if(program.post) {
     var myfile = program.post;
     if (myfile === true){
       console.log("SSG couldn't find  the name of the post you want to create. Please include it.")
@@ -75,6 +65,9 @@ function convertThis() {
       });
            
       }
+  }
+  else if (program.serve){
+    shell.exec('serve ./docs')
   }
   else if (program.build){
     // clear destination folder
@@ -198,4 +191,4 @@ function convertThis() {
 
 }
 
-  exports.convert = convertThis;
+exports.convert = convertThis;
