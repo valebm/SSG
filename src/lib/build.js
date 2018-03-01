@@ -48,7 +48,7 @@ function convertThis() {
     //Creates directory for the new post and writes YAML config.
     else{
       fs.mkdir(`./posts/${myfile}`, function(){
-        fs.writeFileSync(`./posts/${myfile}/index.html`, '---\nlayout: post\n---')
+        fs.writeFileSync(`./posts/${myfile}/index.html`, '---\nlayout: post\ntag:\n---')
       })
     }
   }
@@ -63,7 +63,7 @@ function convertThis() {
     //Creates directory for the new draft and writes YAML config.
     else{
       fs.mkdir(`./drafts/${myfile}`, function(){
-      fs.writeFileSync(`./drafts/${myfile}/index.html`, '---\nlayout: draft\n---')
+      fs.writeFileSync(`./drafts/${myfile}/index.html`, '---\nlayout: draft\ntag:\n---')
       })
     }
   }
